@@ -1,6 +1,5 @@
 package com.github.mateuszlisowski.springjpatutorial;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,17 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BookController {
 
-    private final BookRepository bookRepository;
+    private final BookRepository repository;
 
     public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+        this.repository = bookRepository;
     }
 
     @PostMapping("/books")
-    public Book createBook(
+    public Book create(
             @RequestBody Book book
     ) {
-       return bookRepository.save(book);
+       return repository.save(book);
     }
 
 }
