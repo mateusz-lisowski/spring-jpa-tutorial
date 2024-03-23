@@ -40,4 +40,11 @@ public class BookController {
         return book.get();
     }
 
+    @GetMapping("/books/search/{author}")
+    public List<Book> readByAuthor(
+            @PathVariable String author
+    ) {
+        return repository.findAllByAuthor(author);
+    }
+
 }
