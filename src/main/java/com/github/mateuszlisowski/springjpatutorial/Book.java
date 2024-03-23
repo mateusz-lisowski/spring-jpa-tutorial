@@ -17,12 +17,12 @@ public class Book {
 
     public Book() {}
 
-    public String getAuthor() {
-        return author;
+    public UUID getId() {
+        return id;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -31,5 +31,13 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
