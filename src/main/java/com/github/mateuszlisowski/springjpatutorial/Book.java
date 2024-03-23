@@ -1,6 +1,5 @@
 package com.github.mateuszlisowski.springjpatutorial;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,12 +13,23 @@ public class Book {
     @GeneratedValue
     private UUID id;
     private String title;
-    @Column(
-            updatable = false
-    )
     private String author;
-
 
     public Book() {}
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
