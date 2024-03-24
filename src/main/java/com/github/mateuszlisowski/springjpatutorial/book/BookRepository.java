@@ -1,4 +1,4 @@
-package com.github.mateuszlisowski.springjpatutorial;
+package com.github.mateuszlisowski.springjpatutorial.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
