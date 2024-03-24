@@ -18,6 +18,7 @@ public class BookController {
     }
 
     @PostMapping("/books")
+    @ResponseStatus(HttpStatus.CREATED)
     public Book create(
             @RequestBody Book book
     ) {
@@ -45,6 +46,18 @@ public class BookController {
             @PathVariable String author
     ) {
         return repository.findAllByAuthor(author);
+    }
+
+    @DeleteMapping("/books/{book-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+            @PathVariable("book-id") UUID uuid
+    ) {
+        Optional<Book> book = repository.findById(uuid);
+        if (book.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + uuid + " not found");
+        }
+        repository.delete(book.get());
     }
 
 }
