@@ -33,6 +33,11 @@ public class Rent {
     @JsonBackReference
     private Member member;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "book_id"
+    )
+    @JsonBackReference
     private Book book;
 
 }
