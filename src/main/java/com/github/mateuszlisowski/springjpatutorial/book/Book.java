@@ -18,11 +18,8 @@ public class Book {
     @Id
     @GeneratedValue
     private UUID id;
-
     private String title;
-
     private String author;
-
     @OneToMany(
             mappedBy = "book"
     )

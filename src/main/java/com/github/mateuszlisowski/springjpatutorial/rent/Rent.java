@@ -19,20 +19,15 @@ public class Rent {
     @Id
     @UuidGenerator
     private String id;
-
     private Date rentStart;
-
     private Date rentEnd;
-
     private Date dueDate;
-
     @ManyToOne
     @JoinColumn(
             name = "member_id"
     )
     @JsonBackReference
     private Member member;
-
     @ManyToOne
     @JoinColumn(
             name = "book_id"
