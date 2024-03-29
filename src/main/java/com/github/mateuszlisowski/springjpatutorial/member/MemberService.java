@@ -6,4 +6,11 @@ public class MemberService {
         return new MemberSchema(member.getFirstName(), member.getLastName());
     }
 
+    public Member deserializeMember(MemberSchema schema) {
+        Member member = new Member();
+        member.setFirstName(schema.firstName());
+        member.setLastName(schema.lastName());
+        return member;
+    }
+
 }
