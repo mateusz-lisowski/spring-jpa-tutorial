@@ -9,4 +9,11 @@ public class BookService {
         return new BookSchema(book.getTitle(), book.getAuthor());
     }
 
+    public Book deserializeBook(BookSchema schema) {
+       Book book = new Book();
+       book.setTitle(schema.title());
+       book.setAuthor(schema.author());
+       return book;
+    }
+
 }
