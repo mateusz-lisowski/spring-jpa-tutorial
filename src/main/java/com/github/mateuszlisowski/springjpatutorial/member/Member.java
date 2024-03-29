@@ -9,6 +9,7 @@ import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -16,7 +17,7 @@ public class Member {
 
     @Id
     @UuidGenerator
-    private String id;
+    private UUID id;
     private String firstName;
     private String lastName;
     @OneToMany(
