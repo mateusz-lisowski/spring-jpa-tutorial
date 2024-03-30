@@ -1,7 +1,9 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,20 +30,25 @@ public class BookService {
         return repository.save(deserializeBook(schema));
     }
 
-    public Optional<Book> getBookById(UUID uuid) {
-        return repository.findById(uuid);
+    public Book getBookById(UUID uuid) {
+        Optional<Book> book = repository.findById(uuid);
+        if (book.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id: " + uuid + " not found");
+        }
+        return book.get();
     }
 
     public List<Book> getAllBooks() {
         return repository.findAll();
     }
 
+    public List<Book> getAllBooksByAuthor(String author) {
+        return repository.findAllByAuthor(author);
+    }
+
     public void deleteBook(UUID uuid) {
-        Optional<Book> book = getBookById(uuid);
-        if (book.isEmpty()) {
-            throw new RuntimeException("Book with id: " + uuid + " not found");
-        }
-        repository.delete(book.get());
+        Book book = getBookById(uuid);
+        repository.delete(book);
     }
 
 }
