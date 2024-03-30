@@ -26,25 +26,4 @@ public class RentService {
         );
     }
 
-    public Rent deserializeRent(RentSchema schema) {
-        Rent rent = new Rent();
-        rent.setRentStart(schema.rentStart());
-        rent.setRentEnd(schema.rentEnd());
-        rent.setDueDate(schema.dueDate());
-
-        Optional<Member> member = memberService.getMemberById(rent.getMember().getId());
-        if (member.isEmpty()) {
-            throw new RuntimeException("Error while deserializing rent");
-        }
-
-        Optional<Book> book = bookService.getBookById(rent.getBook().getId());
-        if (book.isEmpty()) {
-            throw new RuntimeException("Error while deserializing rent");
-        }
-
-        rent.setMember(member.get());
-        rent.setBook(book.get());
-
-        return rent;
-    }
 }
