@@ -1,5 +1,6 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -9,43 +10,36 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@AllArgsConstructor
 public class BookController {
 
-    private final BookRepository repository;
-
-    public BookController(BookRepository bookRepository) {
-        this.repository = bookRepository;
-    }
+    private final BookService service;
 
     @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(
-            @RequestBody Book book
+            @RequestBody BookSchema bookSchema
     ) {
-       return repository.save(book);
+       return service.createBook(bookSchema);
     }
 
     @GetMapping("/books")
     public List<Book> readAll() {
-        return repository.findAll();
+        return service.getAllBooks();
     }
 
     @GetMapping("/books/{book-id}")
     public Book readById(
             @PathVariable("book-id") UUID uuid
     ) {
-        Optional<Book> book = repository.findById(uuid);
-        if (book.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + uuid + " not found");
-        }
-        return book.get();
+       return service.getBookById(uuid);
     }
 
     @GetMapping("/books/search/{author}")
     public List<Book> readByAuthor(
             @PathVariable String author
     ) {
-        return repository.findAllByAuthor(author);
+        return service.getAllBooksByAuthor(author);
     }
 
     @DeleteMapping("/books/{book-id}")
@@ -53,11 +47,7 @@ public class BookController {
     public void delete(
             @PathVariable("book-id") UUID uuid
     ) {
-        Optional<Book> book = repository.findById(uuid);
-        if (book.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id " + uuid + " not found");
-        }
-        repository.delete(book.get());
+       service.deleteBook(uuid);
     }
 
 }
