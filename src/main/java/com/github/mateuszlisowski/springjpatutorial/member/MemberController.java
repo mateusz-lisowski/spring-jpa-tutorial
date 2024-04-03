@@ -17,21 +17,21 @@ public class MemberController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberSchema create(
-            @RequestBody MemberSchema schema
+    public MemberResponse create(
+            @RequestBody MemberCreate schema
     ) {
         Member result = service.createMember(schema);
         return service.serializeMember(result);
     }
 
     @GetMapping
-    public List<MemberSchema> readAll() {
+    public List<MemberResponse> readAll() {
         List<Member> result = service.getAllMembers();
         return result.stream().map(service::serializeMember).collect(Collectors.toList());
     }
 
     @GetMapping("/{member-id}")
-    public MemberSchema readById(
+    public MemberResponse readById(
             @PathVariable("member-id") UUID uuid
     ) {
         Member result = service.getMemberById(uuid);
