@@ -1,5 +1,6 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookCreate;
 import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,11 @@ public class BookService {
         return new BookResponse(book.getId(), book.getTitle(), book.getAuthor());
     }
 
-    public Book deserializeBook(BookResponse schema) {
-       Book book = new Book();
-       book.setTitle(schema.title());
-       book.setAuthor(schema.author());
-       return book;
-    }
-
-    public Book createBook(BookResponse schema) {
-        return repository.save(deserializeBook(schema));
+    public Book createBook(BookCreate schema) {
+        Book book = new Book();
+        book.setTitle(schema.title());
+        book.setAuthor(schema.author());
+        return repository.save(book);
     }
 
     public Book getBookById(UUID uuid) {
