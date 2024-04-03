@@ -1,6 +1,6 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,27 +9,28 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
+@RequestMapping("/books")
 public class BookController {
 
     private final BookService service;
 
-    @PostMapping("/books")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookSchema create(
-            @RequestBody BookSchema bookSchema
+            @RequestBody BookSchema schema
     ) {
-        Book result = service.createBook(bookSchema);
+        Book result = service.createBook(schema);
         return service.serializeBook(result);
     }
 
-    @GetMapping("/books")
+    @GetMapping
     public List<BookSchema> readAll() {
         List<Book> result = service.getAllBooks();
         return result.stream().map(service::serializeBook).collect(Collectors.toList());
     }
 
-    @GetMapping("/books/{book-id}")
+    @GetMapping("/{book-id}")
     public BookSchema readById(
             @PathVariable("book-id") UUID uuid
     ) {
@@ -37,7 +38,7 @@ public class BookController {
         return service.serializeBook(result);
     }
 
-    @GetMapping("/books/search/{author}")
+    @GetMapping("/search/{author}")
     public List<BookSchema> readByAuthor(
             @PathVariable String author
     ) {
@@ -45,7 +46,7 @@ public class BookController {
         return result.stream().map(service::serializeBook).collect(Collectors.toList());
     }
 
-    @DeleteMapping("/books/{book-id}")
+    @DeleteMapping("/{book-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
             @PathVariable("book-id") UUID uuid
