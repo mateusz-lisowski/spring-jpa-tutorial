@@ -1,4 +1,4 @@
-package com.github.mateuszlisowski.springjpatutorial.member;
+package com.github.mateuszlisowski.springjpatutorial.member.schemas;
 
 public record MemberCreate(
         String firstName,

@@ -1,5 +1,7 @@
 package com.github.mateuszlisowski.springjpatutorial.member;
 
+import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberCreate;
+import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

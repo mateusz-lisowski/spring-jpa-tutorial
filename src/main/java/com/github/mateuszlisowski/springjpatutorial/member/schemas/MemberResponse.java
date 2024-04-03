@@ -1,4 +1,4 @@
-package com.github.mateuszlisowski.springjpatutorial.member;
+package com.github.mateuszlisowski.springjpatutorial.member.schemas;
 
 import java.util.UUID;
 
