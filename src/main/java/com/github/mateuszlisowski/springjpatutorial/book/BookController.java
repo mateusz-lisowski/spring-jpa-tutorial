@@ -1,5 +1,6 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookSchema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
