@@ -1,6 +1,7 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
-import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookSchema;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookCreate;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,21 +19,21 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookSchema create(
-            @RequestBody BookSchema schema
+    public BookResponse create(
+            @RequestBody BookCreate schema
     ) {
         Book result = service.createBook(schema);
         return service.serializeBook(result);
     }
 
     @GetMapping
-    public List<BookSchema> readAll() {
+    public List<BookResponse> readAll() {
         List<Book> result = service.getAllBooks();
         return result.stream().map(service::serializeBook).collect(Collectors.toList());
     }
 
     @GetMapping("/{book-id}")
-    public BookSchema readById(
+    public BookResponse readById(
             @PathVariable("book-id") UUID uuid
     ) {
         Book result = service.getBookById(uuid);
@@ -40,7 +41,7 @@ public class BookController {
     }
 
     @GetMapping("/search/{author}")
-    public List<BookSchema> readByAuthor(
+    public List<BookResponse> readByAuthor(
             @PathVariable String author
     ) {
         List<Book> result = service.getAllBooksByAuthor(author);
