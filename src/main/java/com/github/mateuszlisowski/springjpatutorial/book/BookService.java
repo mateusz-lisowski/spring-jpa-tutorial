@@ -1,6 +1,6 @@
 package com.github.mateuszlisowski.springjpatutorial.book;
 
-import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookSchema;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,18 +16,18 @@ public class BookService {
 
     private final BookRepository repository;
 
-    public BookSchema serializeBook(Book book) {
-        return new BookSchema(book.getTitle(), book.getAuthor());
+    public BookResponse serializeBook(Book book) {
+        return new BookResponse(book.getId(), book.getTitle(), book.getAuthor());
     }
 
-    public Book deserializeBook(BookSchema schema) {
+    public Book deserializeBook(BookResponse schema) {
        Book book = new Book();
        book.setTitle(schema.title());
        book.setAuthor(schema.author());
        return book;
     }
 
-    public Book createBook(BookSchema schema) {
+    public Book createBook(BookResponse schema) {
         return repository.save(deserializeBook(schema));
     }
 
