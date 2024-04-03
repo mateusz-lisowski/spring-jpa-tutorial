@@ -15,19 +15,15 @@ public class MemberService {
 
     private final MemberRepository repository;
 
-    public MemberSchema serializeMember(Member member) {
-        return new MemberSchema(member.getFirstName(), member.getLastName());
+    public MemberResponse serializeMember(Member member) {
+        return new MemberResponse(member.getId(), member.getFirstName(), member.getLastName());
     }
 
-    public Member deserializeMember(MemberSchema schema) {
+    public Member createMember(MemberCreate schema) {
         Member member = new Member();
         member.setFirstName(schema.firstName());
         member.setLastName(schema.lastName());
-        return member;
-    }
-
-    public Member createMember(MemberSchema schema) {
-        return repository.save(deserializeMember(schema));
+        return repository.save(member);
     }
 
     public Member getMemberById(UUID uuid) {
