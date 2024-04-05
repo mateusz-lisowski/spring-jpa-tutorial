@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public record RentResponse(
+        UUID id,
         Date rentStart,
         Date rentEnd,
         Date dueDate,
