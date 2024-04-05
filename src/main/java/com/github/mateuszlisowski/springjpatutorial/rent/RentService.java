@@ -26,10 +26,6 @@ public class RentService {
         );
     }
 
-    public List<Book> findMembersBook(UUID memberId) {
-        return repository.findByMember(memberId);
-    }
-
     public void rentBook(Book book, Member member) {
 
     }
