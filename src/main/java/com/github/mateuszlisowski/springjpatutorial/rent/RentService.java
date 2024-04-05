@@ -1,29 +1,37 @@
 package com.github.mateuszlisowski.springjpatutorial.rent;
 
 import com.github.mateuszlisowski.springjpatutorial.book.Book;
-import com.github.mateuszlisowski.springjpatutorial.book.BookService;
 import com.github.mateuszlisowski.springjpatutorial.member.Member;
-import com.github.mateuszlisowski.springjpatutorial.member.MemberService;
-import lombok.AllArgsConstructor;
+import com.github.mateuszlisowski.springjpatutorial.rent.schemas.RentResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RentService {
 
-    private final MemberService memberService;
-    private final BookService bookService;
+    private final RentRepository repository;
 
-    public RentSchema serializeRent(Rent rent) {
-        return new RentSchema(
+    public RentResponse serializeRent(Rent rent) {
+        return new RentResponse(
+                rent.getId(),
                 rent.getRentStart(),
                 rent.getRentEnd(),
                 rent.getDueDate(),
                 rent.getMember().getId(),
                 rent.getBook().getId()
         );
+    }
+
+    public List<Book> findMembersBook(UUID memberId) {
+        return repository.findByMember(memberId);
+    }
+
+    public void rentBook(Book book, Member member) {
+
     }
 
 }
