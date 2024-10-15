@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16.4-alpine3.20
     environment:
       - 'POSTGRES_DB=database'
       - 'POSTGRES_PASSWORD=password'
