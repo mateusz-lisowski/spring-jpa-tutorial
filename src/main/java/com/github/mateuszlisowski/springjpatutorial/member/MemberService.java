@@ -26,6 +26,7 @@ public class MemberService {
 
     public Member createMember(MemberCreate schema) {
         Member member = new Member();
+        member.setId(schema.id());
         member.setFirstName(schema.firstName());
         member.setLastName(schema.lastName());
         return repository.save(member);
