@@ -1,7 +1,10 @@
 package com.github.mateuszlisowski.springjpatutorial.member;
 
+import com.github.mateuszlisowski.springjpatutorial.book.Book;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookUpdate;
 import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberCreate;
 import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberResponse;
+import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,17 @@ public class MemberService {
 
     public List<Member> getAllMembers() {
         return repository.findAll();
+    }
+
+    public Member updateMember(UUID uuid, MemberUpdate updatedMember) {
+        Optional<Member> member = repository.findById(uuid);
+        if (member.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with id: " + uuid + " not found");
+        }
+        Member memberToUpdate = member.get();
+        memberToUpdate.setFirstName(updatedMember.firstName());
+        memberToUpdate.setLastName(updatedMember.lastName());
+        return repository.save(memberToUpdate);
     }
 
     public void deleteMember(UUID uuid) {
