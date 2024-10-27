@@ -24,6 +24,7 @@ public class BookService {
 
     public Book createBook(BookCreate schema) {
         Book book = new Book();
+        book.setId(schema.id());
         book.setTitle(schema.title());
         book.setAuthor(schema.author());
         return repository.save(book);
