@@ -1,7 +1,11 @@
 package com.github.mateuszlisowski.springjpatutorial.member;
 
+import com.github.mateuszlisowski.springjpatutorial.book.Book;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookResponse;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookUpdate;
 import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberCreate;
 import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberResponse;
+import com.github.mateuszlisowski.springjpatutorial.member.schemas.MemberUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +41,15 @@ public class MemberController {
             @PathVariable("member-id") UUID uuid
     ) {
         Member result = service.getMemberById(uuid);
+        return service.serializeMember(result);
+    }
+
+    @PutMapping("/{member-id}")
+    public MemberResponse updateMember(
+            @PathVariable("member-id") UUID uuid,
+            @RequestBody MemberUpdate schema
+    ) {
+        Member result = service.updateMember(uuid, schema);
         return service.serializeMember(result);
     }
 
