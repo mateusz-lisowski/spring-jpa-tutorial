@@ -2,6 +2,7 @@ package com.github.mateuszlisowski.springjpatutorial.book;
 
 import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookCreate;
 import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookResponse;
+import com.github.mateuszlisowski.springjpatutorial.book.schemas.BookUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,17 @@ public class BookService {
 
     public List<Book> getAllBooksByAuthor(String author) {
         return repository.findAllByAuthor(author);
+    }
+
+    public Book updateBook(UUID uuid, BookUpdate updatedBook) {
+        Optional<Book> book = repository.findById(uuid);
+        if (book.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book with id: " + uuid + " not found");
+        }
+        Book bookToUpdate = book.get();
+        bookToUpdate.setTitle(updatedBook.title());
+        bookToUpdate.setAuthor(updatedBook.author());
+        return repository.save(bookToUpdate);
     }
 
     public void deleteBook(UUID uuid) {
